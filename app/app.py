@@ -89,7 +89,7 @@ df = prepare_data()
 
 # Sidebar widgets
 st.sidebar.header('Filter Data')
-selected_year = st.sidebar.slider('Select Year', min_value=int(df['year'].min()), max_value=int(df['year'].max()),max_value=int(df['year'].max()))
+selected_year = st.sidebar.slider('Select Year', min_value=int(df['year'].min()), max_value=int(df['year'].max()))
 selected_countries = st.sidebar.multiselect('Select Countries', df['country'].unique(),default=["Germany","Croatia"])
 
 # Filter dataframe based on selected year and countries
