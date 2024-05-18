@@ -97,8 +97,8 @@ filtered_df = df[(df['year'] == selected_year) & (df['country'].isin(selected_co
 
 # Create Altair chart
 chart = alt.Chart(filtered_df).mark_circle().encode(
-    x='GNI',
-    y='Life Expectancy',
+    x='gni_per_capita',
+    y='life_expectancy',
     size='population',
     color='country',
     tooltip=['country', 'year', 'population', 'life_expectancy', 'gni_per_capita']
