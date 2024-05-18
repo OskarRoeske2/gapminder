@@ -65,8 +65,8 @@ def prepare_data():
     gni_per_capita_tidy = gni_df.melt(id_vars=['country'], var_name='year', value_name='gni_per_capita')
 
     merged_df = (population_tidy
-                .merge(life_expectancy_tidy, on=['country', 'year'], how='outer')
-                .merge(gni_per_capita_tidy, on=['country', 'year'], how='outer'))
+                .merge(life_expectancy_tidy, on=['year'], how='outer')
+                .merge(gni_per_capita_tidy, on=['year'], how='outer'))
 
     for column in ['population', 'gni_per_capita']:
         merged_df[column] = merged_df[column].apply(normalize_value)
@@ -97,10 +97,10 @@ filtered_df = df[(df['year'] == selected_year) & (df['country'].isin(selected_co
 
 # Create Altair chart
 chart = alt.Chart(filtered_df).mark_circle().encode(
-    x='gni_per_capita',
-    y='life_expectancy',
-    size='population',
-    color='country',
+    x='GNI',
+    y='Life Expectancy',
+    size='Population',
+    color='Country',
     tooltip=['country', 'year', 'population', 'life_expectancy', 'gni_per_capita']
 ).properties(
     width=800,
