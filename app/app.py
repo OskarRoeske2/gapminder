@@ -65,8 +65,8 @@ def prepare_data():
     gni_per_capita_tidy = gni_df.melt(id_vars=['country'], var_name='year', value_name='gni_per_capita')
 
     merged_df = (population_tidy
-                .merge(life_expectancy_tidy, on=['country','year'], how='outer')
-                .merge(gni_per_capita_tidy, on=['country','year'], how='outer'))
+                .merge(life_expectancy_tidy, on=['country','year'], how='inner')
+                .merge(gni_per_capita_tidy, on=['country','year'], how='inner'))
 
     for column in ['population', 'gni_per_capita']:
         merged_df[column] = merged_df[column].apply(normalize_value)
