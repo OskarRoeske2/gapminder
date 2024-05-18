@@ -65,8 +65,8 @@ def prepare_data():
     gni_per_capita_tidy = gni_df.melt(id_vars=['country'], var_name='year', value_name='gni_per_capita')
 
     merged_df = (population_tidy
-                .merge(life_expectancy_tidy, on=['year'], how='outer')
-                .merge(gni_per_capita_tidy, on=['year'], how='outer'))
+                .merge(life_expectancy_tidy, on=['country','year'], how='outer')
+                .merge(gni_per_capita_tidy, on=['country','year'], how='outer'))
 
     for column in ['population', 'gni_per_capita']:
         merged_df[column] = merged_df[column].apply(normalize_value)
@@ -89,8 +89,8 @@ df = prepare_data()
 
 # Sidebar widgets
 st.sidebar.header('Filter Data')
-selected_year = st.sidebar.slider('Select Year', min_value=int(df['year'].min()), max_value=int(df['year'].max()))
-selected_countries = st.sidebar.multiselect('Select Countries', df['country'].unique())
+selected_year = st.sidebar.slider('Select Year', min_value=int(df['year'].min()), max_value=int(df['year'].max()),max_value=int(df['year'].max()))
+selected_countries = st.sidebar.multiselect('Select Countries', df['country'].unique(),default=["Germany","Croatia"])
 
 # Filter dataframe based on selected year and countries
 filtered_df = df[(df['year'] == selected_year) & (df['country'].isin(selected_countries))]
